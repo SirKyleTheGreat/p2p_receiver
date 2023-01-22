@@ -57,11 +57,13 @@ export default defineComponent({
           this.joystick.right.axes = jsonMessage.rightJoystick
           this.pedal = jsonMessage.pedal
           this.time = recevived - jsonMessage.timestamp
+
+          this.conn?.send(jsonMessage.timestamp)
         });
 
-        this.conn?.on("open", () => {
-          this.conn?.send("Offer Accepted");
-        });
+        // this.conn?.on("open", () => {
+        //   this.conn?.send("Offer Accepted");
+        // });
       });
     },
 
