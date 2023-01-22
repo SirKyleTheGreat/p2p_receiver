@@ -10,6 +10,7 @@ export default defineComponent({
       // Peer WebRTC RELATED
       peer: undefined as Peer | undefined,
       conn: undefined as DataConnection | undefined,
+      time: 0,
       // GAMEPAD RELATED
       joystick: {
         left: { axes: [0, 1] },
@@ -35,6 +36,7 @@ export default defineComponent({
         secure: false,
         path: "/",
       });
+      // this.peer = new Peer("peer-b")
       this.peer.on("open", function (id) {
         Toast.makeToast("My peer ID is: " + id);
       });
@@ -52,6 +54,7 @@ export default defineComponent({
           this.joystick.left.axes = jsonMessage.leftJoystick
           this.joystick.right.axes = jsonMessage.rightJoystick
           this.pedal = jsonMessage.pedal
+          this.time = new Date().getTime() - jsonMessage.timestamp
         });
 
         this.conn?.on("open", () => {
@@ -71,7 +74,7 @@ export default defineComponent({
 
 <template>
   <div class="absolute left-0 top-0 text-white p-2 bg-gray-800 rounded-br-md">
-    <p>Controls Receiver</p>
+    <p>Latency: {{ time }} ms</p>
   </div>
   <div class="relative">
     <div class="grid grid-rows-4 grid-cols-6 gap-1 h-screen place-items-center">
