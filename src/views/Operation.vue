@@ -3,6 +3,7 @@ import { defineComponent } from 'vue'
 import Toast from '../utils/toastify'
 import * as mqtt from "mqtt"
 import { Peer, DataConnection } from "peerjs"
+import { timeStamp } from 'console'
 
 export default defineComponent({
   data() {
@@ -55,7 +56,7 @@ export default defineComponent({
           this.joystick.left.axes = jsonMessage.leftJoystick
           this.joystick.right.axes = jsonMessage.rightJoystick
           this.pedal = jsonMessage.pedal
-          this.time = recevived - new Date(jsonMessage.timestamp).getTime()
+          this.time = recevived - jsonMessage.timestamp
         });
 
         this.conn?.on("open", () => {
