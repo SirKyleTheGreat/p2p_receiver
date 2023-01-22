@@ -54,7 +54,7 @@ export default defineComponent({
           this.joystick.left.axes = jsonMessage.leftJoystick
           this.joystick.right.axes = jsonMessage.rightJoystick
           this.pedal = jsonMessage.pedal
-          this.time = new Date().getTime() - jsonMessage.timestamp
+          this.time = new Date().getTime() - new Date(jsonMessage.timestamp).getTime()
         });
 
         this.conn?.on("open", () => {
