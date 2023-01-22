@@ -48,13 +48,14 @@ export default defineComponent({
 
         conn.on("data", (data) => {
           // Will print 'hi!'
+          const recevived = new Date().getTime()
           // this.conn?.send(data);
           const jsonMessage = JSON.parse(data as string);
           // console.log(jsonMessage)
           this.joystick.left.axes = jsonMessage.leftJoystick
           this.joystick.right.axes = jsonMessage.rightJoystick
           this.pedal = jsonMessage.pedal
-          this.time = new Date().getTime() - new Date(jsonMessage.timestamp).getTime()
+          this.time = recevived - new Date(jsonMessage.timestamp).
         });
 
         this.conn?.on("open", () => {
